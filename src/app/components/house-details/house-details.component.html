@@ -1,0 +1,16 @@
+<mat-card>
+    <mat-card-header>
+        <h3>{{(house | async)?.name}}</h3>
+    </mat-card-header>
+    <mat-card-content>
+        <p *ngIf="(house |async)?.words"> Words of the house: {{(house |async)?.words}}</p>
+        <p *ngIf="(house |async)?.region"> Region: {{(house |async)?.region}}</p>
+        <p *ngIf="(house |async)?.coatOfArms"> Coat of arms: {{(house |async)?.coatOfArms}}</p>
+        <p *ngIf="(house |async)?.heir"> Heir of the house: {{(house |async)?.heir}}</p>
+        <p *ngIf="(overlord |async)?.aliases && (overlord |async)?.aliases?.length != 0"> Overlord: {{(overlord |async)?.name}}</p>
+        <p *ngIf="(currentLord |async)?.aliases"> Current Lord: {{(currentLord |async)?.name}}</p>
+        <p *ngIf="(house |async)?.founded"> Founded: {{(house |async)?.founded}}</p>
+        <p *ngIf="(house |async)?.founder"> Founder: {{(house |async)?.founder}}</p> 
+        <p *ngIf="(house |async)?.diedOut"> Died out: {{(house |async)?.diedOut}}</p>
+    </mat-card-content>
+</mat-card>

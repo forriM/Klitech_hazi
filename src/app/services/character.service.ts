@@ -13,4 +13,8 @@ export class CharacterService {
   getCharacters(){
     return this.http.get<Character[]>(this.baseUrl)
   }
+
+  getCharacter(url:string){
+    return this.http.get<Character>(url)
+  }
 }

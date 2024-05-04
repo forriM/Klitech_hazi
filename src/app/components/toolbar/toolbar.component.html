@@ -1,0 +1,16 @@
+<mat-toolbar>
+    <button mat-icon-button [mat-menu-trigger-for]="menu" class="example-icon"
+        aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/houses">Houses </button>
+        <button mat-menu-item routerLink="/characters">Characters </button>
+        <button mat-menu-item routerLink="/books">Books </button>
+    </mat-menu>
+    <span>Game of Thrones Wiki by forri</span>
+
+</mat-toolbar>
+<div>
+
+</div>

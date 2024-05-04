@@ -16,4 +16,8 @@ export class HouseService {
     }
     return this.http.get<House[]>(this.url,options);
   }
+
+  getHouse(url:string){
+    return this.http.get<House>(url);
+  }
 }
