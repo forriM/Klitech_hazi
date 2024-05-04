@@ -1,0 +1,3 @@
+<div *ngFor = "let character of characters | async">
+    <h3>{{character.name}} {{character.aliases[0]}} {{character.url}}</h3>
+</div>
