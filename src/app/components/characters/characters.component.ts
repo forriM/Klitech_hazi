@@ -4,15 +4,17 @@ import { Character } from '../../models/Character';
 import { CharacterService } from '../../services/character.service';
 import { CommonModule, NgFor } from '@angular/common';
 import{MatListModule} from '@angular/material/list'
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-characters',
   standalone: true,
-  imports: [NgFor, CommonModule, MatListModule],
+  imports: [NgFor, CommonModule, MatListModule, RouterLink],
   templateUrl: './characters.component.html',
   styleUrl: './characters.component.scss'
 })
 export class CharactersComponent implements OnInit{
+  title='Characters'
   selectedCharacter?: Character
   ngOnInit(): void {
     this.characters=this.service.getCharacters();

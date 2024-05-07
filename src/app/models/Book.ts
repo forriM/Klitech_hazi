@@ -8,6 +8,6 @@ export interface Book {
     numberOfPages: number;
     povCharacters: string[];
     publisher: string;
-    released: Date;
+    released: string;
     url: string;
 }

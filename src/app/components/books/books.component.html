@@ -1,1 +1,9 @@
-<p>books works!</p>
+
+<mat-nav-list>
+    <h1>Books</h1>
+    <mat-list-item *ngFor="let book of books | async" [activated]="selectedBook === book"
+        (click)="selectedBook = book" [routerLink]="['/books', book.url]">
+        <span matListItemTitle> {{book.name}} </span>
+        <span matListItemLine> Number of pages: {{book.numberOfPages}}</span>
+    </mat-list-item>
+</mat-nav-list>

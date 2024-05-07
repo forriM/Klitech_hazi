@@ -1,16 +1,43 @@
-<mat-card>
+<mat-card *ngIf="house">
     <mat-card-header>
-        <h3>{{(house | async)?.name}}</h3>
+        <h3>{{house.name}}</h3>
     </mat-card-header>
     <mat-card-content>
-        <p *ngIf="(house |async)?.words"> Words of the house: {{(house |async)?.words}}</p>
-        <p *ngIf="(house |async)?.region"> Region: {{(house |async)?.region}}</p>
-        <p *ngIf="(house |async)?.coatOfArms"> Coat of arms: {{(house |async)?.coatOfArms}}</p>
-        <p *ngIf="(house |async)?.heir"> Heir of the house: {{(house |async)?.heir}}</p>
-        <p *ngIf="(overlord |async)?.aliases && (overlord |async)?.aliases?.length != 0"> Overlord: {{(overlord |async)?.name}}</p>
+        <p *ngIf="house.words"> Words of the house: {{house.words}}</p>
+        <p *ngIf="house.region"> Region: {{house.region}}</p>
+        <p *ngIf="house.coatOfArms"> Coat of arms: {{house.coatOfArms}}</p>
+        <p *ngIf="(heir |async)?.name"> Heir of the house: {{(heir |async)?.name}}</p>
+        <p *ngIf="(overlord |async)?.name"> Overlord: {{(overlord|async)?.name}}</p>
         <p *ngIf="(currentLord |async)?.aliases"> Current Lord: {{(currentLord |async)?.name}}</p>
-        <p *ngIf="(house |async)?.founded"> Founded: {{(house |async)?.founded}}</p>
-        <p *ngIf="(house |async)?.founder"> Founder: {{(house |async)?.founder}}</p> 
-        <p *ngIf="(house |async)?.diedOut"> Died out: {{(house |async)?.diedOut}}</p>
+        <p *ngIf="house.founded"> Founded: {{house.founded}}</p>
+        <p *ngIf="(founder |async)?.name"> Founder: {{(founder |async)?.name}}</p>
+        <p *ngIf="house.diedOut"> Died out: {{house.diedOut}}</p>
+        <p *ngIf="house.titles.length==1">Title: {{house.titles[0]}}</p>
+        <p *ngIf="house.seats.length==1">Seat: {{house.seats[0]}}</p>
+        <mat-expansion-panel *ngIf="house.ancestralWeapons.length">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Ancestral weapons</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p *ngFor="let weapon of house.ancestralWeapons">{{weapon}}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="house.seats.length>1">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Seats</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p *ngFor="let seat of house.seats">{{seat}}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="house.titles.length>1">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Titles</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p *ngFor="let title of house.titles">{{title}}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="swornMembers.length">
+            <mat-expansion-panel-header>
+                <mat-panel-title>Sworn members</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p *ngFor="let member of swornMembers">{{member.name}}</p>
+        </mat-expansion-panel>
     </mat-card-content>
 </mat-card>
+

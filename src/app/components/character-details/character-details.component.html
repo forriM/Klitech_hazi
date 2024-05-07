@@ -1,1 +1,51 @@
-<p>character-details works!</p>
+<mat-card *ngIf="character">
+    <mat-card-header>
+        <h3>{{character.name || character.aliases[0] || 'character has no name'}}</h3>
+    </mat-card-header>
+    <mat-card-content>
+        <p *ngIf="character.born">{{character.born}}</p>
+        <p *ngIf="character.culture">{{character.culture}}</p>
+        <p *ngIf="character.died">{{character.died}}</p>
+        <p *ngIf="character.father">{{father}}</p>
+        <p *ngIf="mother">{{mother.name || mother.aliases[0] || 'has no name'}}</p>
+        <p *ngIf="spouse">{{spouse.name || spouse.aliases[0] || 'has no name'}}</p>
+        <p *ngIf="character.playedBy.length==1">Played by: {{character.playedBy[0]}}</p>
+        <p *ngIf="character.aliases.length==1">Alias: {{character.aliases[0]}}</p>
+        <p *ngIf="books.length==1">Book: {{books[0].name}}</p>
+        <p *ngIf="povBooks.length==1">Books they had a pov chapter in: {{povBooks[0]}}</p>
+        <p *ngIf="character.titles.length==1">Title: {{character.titles[0]}}</p>
+        <p *ngIf="character.tvSeries.length==1">Season: {{character.titles[0]}}</p>
+        <p *ngIf="allegiances.length==1">Allegience: {{allegiances[0].name}}</p>
+
+
+
+        <mat-expansion-panel *ngIf="character.aliases.length>1">
+            <mat-expansion-panel-header>Aliases:</mat-expansion-panel-header>
+            <p *ngFor="let alias of character.aliases">{{alias}}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="allegiances.length>1">
+            <mat-expansion-panel-header>Allegiences:</mat-expansion-panel-header>
+            <p *ngFor="let allegience of allegiances">{{allegience.name}}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="character.titles.length>1">
+            <mat-expansion-panel-header>Titles:</mat-expansion-panel-header>
+            <p *ngFor="let actor of character.playedBy">{{actor}}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="character.playedBy.length>1">
+            <mat-expansion-panel-header>Played by:</mat-expansion-panel-header>
+            <p *ngFor="let actor of character.playedBy">{{actor}}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="books.length>1">
+            <mat-expansion-panel-header>Books:</mat-expansion-panel-header>
+            <p *ngFor="let book of books">{{book.name}}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="povBooks.length>1">
+            <mat-expansion-panel-header>Books they had a pov chapter in:</mat-expansion-panel-header>
+            <p *ngFor="let book of povBooks">{{book.name}}</p>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="character.tvSeries.length>1">
+            <mat-expansion-panel-header>Seasons:</mat-expansion-panel-header>
+            <p *ngFor="let season of character.tvSeries">{{season}}</p>
+        </mat-expansion-panel>
+    </mat-card-content>
+</mat-card>

@@ -1,8 +1,7 @@
-
 <mat-nav-list>
-    <mat-list-item *ngFor="let character of characters | async" [activated]="selectedCharacter === character" (click) = "selectedCharacter = character">
-        <span matListItemTitle> {{character.aliases[0]}}</span>
-        <span matListItemLine> Name: {{character.name}}</span>
-        <span matListItemLine> Played by: {{character.playedBy}}</span>
+    <h1>Characters</h1>
+    <mat-list-item *ngFor="let character of characters | async" [activated]="selectedCharacter === character"
+        (click)="selectedCharacter = character" [routerLink]="['/characters', character.url]">
+        <span matListItemTitle> {{character.name || character.aliases[0] || 'Unnamed character'}}</span>
     </mat-list-item>
 </mat-nav-list>

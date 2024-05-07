@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatToolbarModule, MatToolbar } from '@angular/material/toolbar';
 import {MatButtonModule, MatButton} from '@angular/material/button';
 import {MatIconModule, MatIcon} from '@angular/material/icon';
 import{MatMenuModule} from '@angular/material/menu'
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'toolbar',
@@ -13,6 +14,8 @@ import { RouterLink } from '@angular/router';
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss'
 })
-export class ToolbarComponent {
+export class ToolbarComponent{
+  @Input() title?: String
 
+  
 }

@@ -1,8 +1,8 @@
 <mat-nav-list>
+    <h1>Houses</h1>
     <mat-list-item *ngFor="let house of houses | async" [activated]="selectedHouse === house"
         (click)="selectedHouse = house" [routerLink]="['/houses', house.url]">
         <span matListItemTitle> {{house.name}} </span>
-        <span matListItemLine> Words: {{house.words}}</span>
-        <span matListItemLine> current Lord: {{house.currentLord}}</span>
+        <span matListItemLine> Region: {{house.region}}</span>
     </mat-list-item>
 </mat-nav-list>

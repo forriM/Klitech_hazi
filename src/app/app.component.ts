@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import {MatToolbarModule, MatToolbar} from '@angular/material/toolbar';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { MatToolbar} from '@angular/material/toolbar';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @Component({
@@ -13,4 +13,13 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 })
 export class AppComponent {
   title = 'Game of Thrones';
+  currentPage?:string
+  constructor(private activatedRoute:ActivatedRoute) { 
+  }
+  ngOnInit(): void {
+    this.activatedRoute.title.subscribe((title) => {
+      this.currentPage=title
+      console.log(title)
+    })
+  }
 }
