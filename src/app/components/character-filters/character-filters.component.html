@@ -1,0 +1,48 @@
+<div mat-dialog-title>Filters</div>
+
+<div mat-dialog-content>
+    <form>
+        <div>
+            <mat-form-field >
+                <mat-label>Name</mat-label>
+                <input matInput type="text" [(ngModel)]="newFilters.name" name="name">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Born at</mat-label>
+                <input matInput type="text" [(ngModel)]="newFilters.born" name="born">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Died at</mat-label>
+                <input matInput type="text" [(ngModel)]="newFilters.died" name="died">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field >
+                <mat-label>Culture</mat-label>
+                <input matInput type="text"  [(ngModel)]="newFilters.culture" name="culture">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field >
+                <mat-label>Gender</mat-label>
+                <mat-select [(ngModel)]="newFilters.gender" name="gender">
+                    <mat-option value="Female">
+                        Female
+                    </mat-option>
+                    <mat-option value="Male">
+                        Male
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click) = "saveAndExit()">Save</button>
+    <button mat-button (click) = close()>Cancel</button>
+    <button mat-button (click) = clear()>Clear</button>
+</div>

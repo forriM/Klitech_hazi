@@ -9,6 +9,7 @@ import { Book } from '../../models/Book';
 import { BookService } from '../../services/book.service';
 import { House } from '../../models/House';
 import { HouseService } from '../../services/house.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-character-details',

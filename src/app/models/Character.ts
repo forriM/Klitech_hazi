@@ -13,6 +13,7 @@ export interface Character {
     spouse: string;
     titles: string[];
     tvSeries: string[];
+    gender: string;
     url: string;
 }
 

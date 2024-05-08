@@ -1,7 +1,16 @@
+<mat-toolbar>
+    <div class="justify-content-between align-items-center d-flex w-100">
+        <span>Characters</span>
+        <button mat-icon-button (click)="openFilters()"><mat-icon>filter_list</mat-icon></button>
+    </div>
+</mat-toolbar>
+
 <mat-nav-list>
-    <h1>Characters</h1>
     <mat-list-item *ngFor="let character of characters | async" [activated]="selectedCharacter === character"
         (click)="selectedCharacter = character" [routerLink]="['/characters', character.url]">
+
         <span matListItemTitle> {{character.name || character.aliases[0] || 'Unnamed character'}}</span>
+        <span matListItemLine> Gender: {{character.gender}}</span>
+
     </mat-list-item>
 </mat-nav-list>
