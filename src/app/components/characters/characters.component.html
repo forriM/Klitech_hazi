@@ -6,11 +6,11 @@
 </mat-toolbar>
 
 <mat-nav-list>
-    <mat-list-item *ngFor="let character of characters | async" [activated]="selectedCharacter === character"
-        (click)="selectedCharacter = character" [routerLink]="['/characters', character.url]">
-
+    <mat-list-item *ngFor="let character of characters" [routerLink]="['/characters', character.url]">
         <span matListItemTitle> {{character.name || character.aliases[0] || 'Unnamed character'}}</span>
         <span matListItemLine> Gender: {{character.gender}}</span>
-
     </mat-list-item>
 </mat-nav-list>
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]" aria-label="Select page"
+    (page)="pageEvent($event)">
+</mat-paginator>

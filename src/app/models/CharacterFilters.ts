@@ -1,3 +1,7 @@
+
+/**
+ * Model for coupling filters for Characters
+ */
 export interface CharacterFilter{
     name?:string;
     gender?:string;

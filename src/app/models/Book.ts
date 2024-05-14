@@ -1,3 +1,6 @@
+/**
+ * Model representing books
+ */
 export interface Book {
     authors: string[];
     characters: string[];

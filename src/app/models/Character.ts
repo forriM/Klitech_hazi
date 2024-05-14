@@ -1,3 +1,7 @@
+
+/**
+ * Model for characters received from the api
+ */
 export interface Character {
     aliases: string[];
     allegiances: string[];

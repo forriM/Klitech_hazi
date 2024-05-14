@@ -15,7 +15,4 @@ import { Observable } from 'rxjs';
   styleUrl: './toolbar.component.scss'
 })
 export class ToolbarComponent{
-  @Input() title?: String
-
-  
 }

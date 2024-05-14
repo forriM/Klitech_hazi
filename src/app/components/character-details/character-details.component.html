@@ -1,56 +1,79 @@
+<div class="d-flex flex-row justify-content-center align-items-center col-12 p-4 h-auto">
+    <mat-card *ngIf="character" class="col-12 col-lg-8">
+        <mat-card-header>
+            <h3>{{character.name || character.aliases[0] || 'character has no name'}}</h3>
+        </mat-card-header>
+        <mat-card-content>
+            <p *ngIf="character.born">Born: {{character.born}}</p>
+            <p *ngIf="character.culture">Culture: {{character.culture}}</p>
+            <p *ngIf="character.gender">Gender: {{character.gender}}</p>
+            <p *ngIf="character.died">Died: {{character.died}}</p>
+            <p *ngIf="father">Father: <a [routerLink]="['/characters', father.url]">{{father.name || father.aliases[0]
+                    || 'has no name'}}</a></p>
+            <p *ngIf="mother">Mother: <a [routerLink]="['/characters', mother.url]">{{mother.name || mother.aliases[0]
+                    || 'has no name'}} </a></p>
+            <p *ngIf="spouse">Spouse: <a [routerLink]="['/characters', spouse.url]">{{spouse.name || spouse.aliases[0]
+                    || 'has no name'}} </a></p>
+            <p *ngIf="character.playedBy.length==1">Played by: {{character.playedBy[0]}}</p>
+            <p *ngIf="character.aliases.length==1">Alias: {{character.aliases[0]}}</p>
+            <p *ngIf="books.length==1">Book: <a [routerLink]="['/books', books[0].url]">{{books[0].name}} </a></p>
+            <p *ngIf="povBooks.length==1">Books they had a pov chapter in: <a
+                    [routerLink]="['/books', povBooks[0].url]">{{povBooks[0].name}} </a></p>
+            <p *ngIf="character.titles.length==1">Title: {{character.titles[0]}}</p>
+            <p *ngIf="character.tvSeries.length==1">Season: {{character.titles[0]}}</p>
+            <p *ngIf="allegiances.length==1">Allegience: <a
+                    [routerLink]="['/houses', allegiances[0].url]">{{allegiances[0].name}} </a></p>
 
-
-
-
-<mat-card *ngIf="character">
-    <mat-card-header>
-        <h3>{{character.name || character.aliases[0] || 'character has no name'}}</h3>
-    </mat-card-header>
-    <mat-card-content>
-        <p *ngIf="character.born">Born: {{character.born}}</p>
-        <p *ngIf="character.culture">Culture: {{character.culture}}</p>
-        <p *ngIf="character.gender">Gender: {{character.gender}}</p>
-        <p *ngIf="character.died">Died: {{character.died}}</p>
-        <p *ngIf="father">Father: {{father.name}}</p>
-        <p *ngIf="mother">Mother: {{mother.name || mother.aliases[0] || 'has no name'}}</p>
-        <p *ngIf="spouse">Spouse: {{spouse.name || spouse.aliases[0] || 'has no name'}}</p>
-        <p *ngIf="character.playedBy.length==1">Played by: {{character.playedBy[0]}}</p>
-        <p *ngIf="character.aliases.length==1">Alias: {{character.aliases[0]}}</p>
-        <p *ngIf="books.length==1">Book: {{books[0].name}}</p>
-        <p *ngIf="povBooks.length==1">Books they had a pov chapter in: {{povBooks[0].name}}</p>
-        <p *ngIf="character.titles.length==1">Title: {{character.titles[0]}}</p>
-        <p *ngIf="character.tvSeries.length==1">Season: {{character.titles[0]}}</p>
-        <p *ngIf="allegiances.length==1">Allegience: {{allegiances[0].name}}</p>
-
-
-
-        <mat-expansion-panel *ngIf="character.aliases.length>1">
-            <mat-expansion-panel-header>Aliases:</mat-expansion-panel-header>
-            <p *ngFor="let alias of character.aliases">{{alias}}</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel *ngIf="allegiances.length>1">
-            <mat-expansion-panel-header>Allegiences:</mat-expansion-panel-header>
-            <p *ngFor="let allegience of allegiances">{{allegience.name}}</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel *ngIf="character.titles.length>1">
-            <mat-expansion-panel-header>Titles:</mat-expansion-panel-header>
-            <p *ngFor="let title of character.titles">{{title}}</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel *ngIf="character.playedBy.length>1">
-            <mat-expansion-panel-header>Played by:</mat-expansion-panel-header>
-            <p *ngFor="let actor of character.playedBy">{{actor}}</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel *ngIf="books.length>1">
-            <mat-expansion-panel-header>Books:</mat-expansion-panel-header>
-            <p *ngFor="let book of books">{{book.name}}</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel *ngIf="povBooks.length>1">
-            <mat-expansion-panel-header>Books they had a pov chapter in:</mat-expansion-panel-header>
-            <p *ngFor="let book of povBooks">{{book.name}}</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel *ngIf="character.tvSeries.length>1">
-            <mat-expansion-panel-header>Seasons:</mat-expansion-panel-header>
-            <p *ngFor="let season of character.tvSeries">{{season}}</p>
-        </mat-expansion-panel>
-    </mat-card-content>
-</mat-card>
+            <mat-expansion-panel *ngIf="character.aliases.length>1">
+                <mat-expansion-panel-header>Aliases:</mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item *ngFor="let alias of character.aliases">
+                        {{alias}}
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="allegiances.length>1">
+                <mat-expansion-panel-header>Allegiences:</mat-expansion-panel-header>
+                <mat-nav-list>
+                    <mat-list-item *ngFor="let allegience of allegiances" [routerLink]="['/houses', allegience.url]">
+                        {{allegience.name}}
+                    </mat-list-item>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="character.titles.length>1">
+                <mat-expansion-panel-header>Titles:</mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item *ngFor="let title of character.titles"> {{title}} </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="character.playedBy.length>1">
+                <mat-expansion-panel-header>Played by:</mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item *ngFor="let actor of character.playedBy">{{actor}}</mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="books.length>1">
+                <mat-expansion-panel-header>Books:</mat-expansion-panel-header>
+                <mat-nav-list>
+                    <mat-list-item *ngFor="let book of books" [routerLink]="['/books', book.url]">
+                        {{book.name}}
+                    </mat-list-item>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="povBooks.length>1">
+                <mat-expansion-panel-header>Books they had a pov chapter in:</mat-expansion-panel-header>
+                <mat-nav-list>
+                    <mat-list-item *ngFor="let book of povBooks" [routerLink]="['/books', book.url]">
+                        {{book.name}}
+                    </mat-list-item>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="character.tvSeries.length>1">
+                <mat-expansion-panel-header>Seasons:</mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item *ngFor="let season of character.tvSeries">{{season}}</mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+        </mat-card-content>
+    </mat-card>
+</div>

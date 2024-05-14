@@ -1,0 +1,36 @@
+<div mat-dialog-title>Filters</div>
+
+<div mat-dialog-content>
+    <form>
+        <div>
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput type="text" [(ngModel)]="newFilters.name" name="name">
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>From release date</mat-label>
+                <input matInput [matDatepicker]="from" [(ngModel)]="newFilters.fromReleaseDate" name="fromReleaseDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="from"></mat-datepicker-toggle>
+                <mat-datepicker #from></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>To release date</mat-label>
+                <input matInput [matDatepicker]="to" [(ngModel)]="newFilters.toReleaseDate" name="toReleaseDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="to"></mat-datepicker-toggle>
+                <mat-datepicker #to></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="saveAndExit()">Save</button>
+    <button mat-button (click)=close()>Cancel</button>
+    <button mat-button (click)=clear()>Clear</button>
+</div>

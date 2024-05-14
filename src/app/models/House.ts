@@ -1,3 +1,7 @@
+
+/**
+ * Model representing a House
+ */
 export interface House {
     ancestralWeapons: any[];
     cadetBranches: any[];

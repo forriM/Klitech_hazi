@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, filter } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Character } from '../../models/Character';
 import { CharacterService } from '../../services/character.service';
 import { CommonModule, NgFor } from '@angular/common';
@@ -16,54 +16,103 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CharacterFilter } from '../../models/CharacterFilters';
 import { MatDialog } from '@angular/material/dialog'
 import { CharacterFiltersComponent } from '../character-filters/character-filters.component';
-
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator'
+import { PaginatorService } from '../../services/paginator.service';
 
 
 @Component({
   selector: 'app-characters',
   standalone: true,
-  imports: [NgFor, FormsModule, CommonModule, MatListModule, RouterLink,
-    MatToolbarModule, MatInputModule, MatFormFieldModule, MatButtonModule,
-    MatIconModule, MatSelectModule, MatCheckboxModule],
+  imports: [
+    NgFor, 
+    FormsModule, 
+    CommonModule, 
+    MatListModule, 
+    RouterLink,
+    MatToolbarModule, 
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule],
   templateUrl: './characters.component.html',
   styleUrl: './characters.component.scss'
 })
+/**
+ * Component responsible for displaying and handling the list fo characters
+ */
 export class CharactersComponent implements OnInit {
-  title = 'Characters'
-  selectedCharacter?: Character
+  //reference to paginator
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  length?: number = 0;
+  //filters currently applied
   filters?: CharacterFilter
   page = 1;
   pageSize = 10;
+  characters?: Character[] | null
 
+  constructor(private service: CharacterService, public dialog: MatDialog, private paginatorService: PaginatorService) { }
+
+  /**
+   * initialize filters and the list of characters
+   */
   ngOnInit(): void {
-    const filtersStr=localStorage.getItem("characterFilters")
-    if(filtersStr){
-      this.filters=JSON.parse(filtersStr);
-    }
+    this.filters = this.service.getFilters()
     this.getCharacters()
   }
-
+  /**
+   * gets list of characters based on filters and pagination data
+   */
   getCharacters() {
-    this.characters = this.service.getCharacters(this.page, this.pageSize, this.filters);
-    this.characters.subscribe((characters) => console.log(characters))
+    this.service.getCharacters(this.page, this.pageSize, this.filters).subscribe(response => {
+      this.length = this.paginatorService.getTotalDataFromHeader(response.headers.get('link'))
+      console.log(this.length)
+      this.characters = response.body
+    });
+    console.log(this.page, this.pageSize)
   }
-
-  constructor(private service: CharacterService, public dialog: MatDialog) {
-  }
-
+  /**
+   * opens the dialog for editing filters
+   */
   openFilters() {
     let dialogRef = this.dialog.open(CharacterFiltersComponent, {
-      data: {...this.filters},
+      data: { ...this.filters },
     });
 
     dialogRef.afterClosed().subscribe(newFilters => {
-      if (JSON.stringify(newFilters) !== JSON.stringify(this.filters)) {
-        this.filters = newFilters;
-        this.getCharacters();
-        localStorage.setItem('characterFilters', JSON.stringify(this.filters));
-      }
+      this.setFilters(newFilters);
     });
   }
 
-  characters?: Observable<Character[]>
+  /**
+   * Reacts to an event on the paginator and refetches data if needed
+   * @param event 
+   */
+  pageEvent(event: PageEvent) {
+    let wasChanged = false;
+    if (event.pageIndex + 1 !== this.page) {
+      this.page = event.pageIndex + 1;
+      wasChanged = true;
+    }
+    if (event.pageSize !== this.pageSize) {
+      this.pageSize = event.pageSize;
+      wasChanged = true;
+    }
+    if (wasChanged) {
+      this.getCharacters();
+    }
+    console.log(event);
+  }
+  /**
+   * sets the filters if they were changed refetches the characters and resets paginator
+   * @param newFilters 
+   */
+  private setFilters(newFilters: any) {
+    if (JSON.stringify(newFilters) !== JSON.stringify(this.filters)) {
+      this.filters = newFilters;
+      this.paginator.pageIndex = 0;
+      this.page = 1;
+      this.getCharacters();
+      localStorage.setItem('characterFilters', JSON.stringify(this.filters));
+    }
+  }
+
 }

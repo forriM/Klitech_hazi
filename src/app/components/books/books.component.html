@@ -1,8 +1,13 @@
+<mat-toolbar>
+    <div class="justify-content-between align-items-center d-flex w-100">
+        <span>Books</span>
+        <button mat-icon-button (click)="openFilters()"><mat-icon>filter_list</mat-icon></button>
+    </div>
+</mat-toolbar>
+
 
 <mat-nav-list>
-    <h1>Books</h1>
-    <mat-list-item *ngFor="let book of books | async" [activated]="selectedBook === book"
-        (click)="selectedBook = book" [routerLink]="['/books', book.url]">
+    <mat-list-item *ngFor="let book of books | async" [routerLink]="['/books', book.url]">
         <span matListItemTitle> {{book.name}} </span>
         <span matListItemLine> Number of pages: {{book.numberOfPages}}</span>
     </mat-list-item>
